@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Last of Their Kind — Endangered Species</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+ <svg class="ldr-leaf" viewBox="0 0 64 64" fill="none"><path d="M32 4C32 4 8 20 8 40c0 12 10.7 20 24 20s24-8 24-20C56 20 32 4 32 4z" fill="#2d5a3d"/><path d="M32 14v40M32 26l-10 8M32 34l10 8" stroke="#4a9a6a" stroke-width="2" stroke-linecap="round"/></svg>
+ <div class="ldr-txt">Discovering Species</div>
+ <div class="ldr-bar"><div class="ldr-fill"></div></div>
+</div>
+
+<!-- FLOATING LEAVES -->
+<div class="fl-leaves" id="flLeaves"></div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+ <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+ <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">‹</button>
+ <div class="lightbox-content" id="lightboxContent"></div>
+ <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">›</button>
+ <div class="lightbox-counter" id="lightboxCounter"></div>
+</div>
+
+<!-- MEDIA MANAGER PANEL -->
+<div class="media-panel" id="mediaPanel">
+ <div class="mp-header">
+  <div class="mp-title">📂 Media Library</div>
+  <button class="mp-close" onclick="toggleMediaPanel()">✕</button>
+ </div>
+ <div class="mp-body" id="mpBody"></div>
+</div>
+
+<!-- NAV -->
+<nav id="navEl">
+ <div class="n-logo" onclick="scrollTo({top:0,behavior:'smooth'})">🌿 Last<i>Kind</i></div>
+ <div class="n-links" id="nLinks">
+  <a href="#categories">Species</a>
+  <a href="#featured">Featured</a>
+  <a href="#timeline">Timeline</a>
+  <a href="#map-section">Map</a>
+  <a href="#marine">Ocean</a>
+  <a href="#plants">Plants</a>
+  <a href="#statistics">Data</a>
+  <a href="#news">News</a>
+  <button class="n-btn" id="mediaBtn" title="Media Library" onclick="toggleMediaPanel()">📂</button>
+  <button class="n-btn" id="soundBtn" title="Ambient sounds">🔇</button>
+  <button class="n-btn" id="themeBtn" title="Toggle theme">🌙</button>
+ </div>
+ <button class="ham" id="hamBtn"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+ <div class="hero-bg" id="heroBg"></div>
+ <div class="hero-stars" id="heroStars"></div>
+ <div class="hero-birds" id="heroBirds"></div>
+ <div class="hero-mist"></div>
+ <div class="hero-ct">
+  <div class="h-badge"><span class="pulse-d"></span>42,100+ Species at Risk</div>
+  <h1 class="h-title">Protect the <em>Last</em><br>of Their Kind</h1>
+  <p class="h-sub">Discover the rare, endangered, and forever-lost species of our planet. Every extinction is a story that ends too soon.</p>
+  <div class="h-ctas">
+   <a href="#categories" class="btn-p">🔍 Explore Species</a>
+   <a href="#timeline" class="btn-s">📅 View Timeline</a>
+  </div>
+ </div>
+ <div class="hero-media-btn">
+  <button onclick="uploadHeroImage()">📷 Hero Image</button>
+  <button onclick="uploadHeroVideo()">🎬 Hero Video</button>
+ </div>
+ <div class="h-scroll"><span>Scroll</span><div class="sc-line"></div></div>
+ <svg class="hero-wave" viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,100 L0,65 Q80,30 160,55 Q240,80 320,45 Q400,10 480,35 Q560,60 640,25 Q720,0 800,30 Q880,60 960,35 Q1040,10 1120,45 Q1200,80 1280,55 Q1360,30 1440,60 L1440,100Z" fill="var(--cream)"/></svg>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+ <div class="st-item"><div class="st-num" data-t="42100">0</div><div class="st-lab">Threatened Species</div></div>
+ <div class="st-item"><div class="st-num" data-t="905">0</div><div class="st-lab">Extinct Since 1500</div></div>
+ <div class="st-item"><div class="st-num" data-t="8404">0</div><div class="st-lab">Critically Endangered</div></div>
+ <div class="st-item"><div class="st-num" data-t="157">0</div><div class="st-lab">Countries Affected</div></div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-sec">
+ <div class="search-wrap">
+  <span class="s-icon">🔍</span>
+  <input class="search-in" id="searchIn" placeholder="Search species by name, habitat, or status…">
+  <div class="s-results" id="sResults"></div>
+ </div>
+ <div class="s-sugg" id="sSugg"></div>
+</div>
+
+<!-- CATEGORIES -->
+<section id="categories" class="reveal">
+ <div class="sec-hdr"><div class="sec-tag">Explore</div><h2 class="sec-title">Browse by Category</h2><p class="sec-desc">From dense forests to deep oceans, discover the species fighting for survival across every habitat on Earth.</p></div>
+ <div class="cat-grid" id="catGrid"></div>
+</section>
+
+<!-- FEATURED -->
+<section id="featured" class="reveal">
+ <div class="sec-hdr"><div class="sec-tag">Featured</div><h2 class="sec-title">Species That Need Our Attention</h2><p class="sec-desc">Critically endangered and recently extinct species that remind us of the urgency of conservation.</p></div>
+ <div class="flt-bar" id="fltBar"></div>
+ <div class="sp-grid" id="spGrid"></div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline" class="reveal">
+ <div class="sec-hdr"><div class="sec-tag" style="color:var(--sunset-light)">History</div><h2 class="sec-title">Extinction Timeline</h2><p class="sec-desc">A solemn record of species lost across centuries — each one a chapter in Earth's story that closed forever.</p></div>
+ <div class="tl-wrap"><div class="tl-track" id="tlTrack"></div></div>
+</section>
+
+<!-- MAP -->
+<section id="map-section" class="reveal">
+ <div class="sec-hdr"><div class="sec-tag">Biodiversity</div><h2 class="sec-title">Global Endangered Hotspots</h2><p class="sec-desc">Explore the regions where species face the greatest threat.</p></div>
+ <div class="map-wrap"><div id="gmap"></div></div>
+</section>
+
+<!-- MARINE -->
+<section id="marine" class="reveal">
+ <div class="sec-hdr"><div class="sec-tag" style="color:rgba(255,255,255,.5)">The Deep</div><h2 class="sec-title">Ocean Life in Peril</h2><p class="sec-desc">Beneath the waves, countless species face extinction from pollution, overfishing, and climate change.</p></div>
+ <div class="mar-scene" id="marScene"><div class="mar-grid" id="marGrid"></div></div>
+</section>
+
+<!-- PLANTS -->
+<section id="plants" class="reveal">
+ <div class="sec-hdr"><div class="sec-tag">Flora</div><h2 class="sec-title">Rare Plants & Flowers</h2><p class="sec-desc">Delicate blooms and ancient trees fighting for survival in a changing world.</p></div>
+ <div class="pl-grid" id="plGrid"></div>
+</section>
+
+<!-- STATS -->
+<section id="statistics" class="reveal">
+ <div class="sec-hdr"><div class="sec-tag">Data & Impact</div><h2 class="sec-title">The Numbers Tell the Story</h2><p class="sec-desc">Visualizing the scale of extinction crisis — every bar, every number, a species fighting to survive.</p></div>
+ <div class="stats-grid" id="chGrid"></div>
+</section>
+
+<!-- NEWS -->
+<section id="news" class="reveal">
+ <div class="sec-hdr"><div class="sec-tag">Latest</div><h2 class="sec-title">Wildlife News & Stories</h2><p class="sec-desc">Stay informed about the latest conservation efforts, discoveries, and challenges facing endangered species worldwide.</p></div>
+ <div class="nw-grid" id="nwGrid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+ <div class="ft-top">
+  <div><div class="ft-brand">🌿 Last<i>Kind</i></div><p class="ft-desc">Dedicated to raising awareness about Earth's most vulnerable species. Every creature matters, every habitat is precious.</p></div>
+  <div><div class="ft-col-t">Explore</div><ul class="ft-links"><li><a href="#categories">All Species</a></li><li><a href="#timeline">Timeline</a></li><li><a href="#map-section">Global Map</a></li><li><a href="#marine">Marine Life</a></li></ul></div>
+  <div><div class="ft-col-t">Learn</div><ul class="ft-links"><li><a href="#statistics">Statistics</a></li><li><a href="#news">News</a></li><li><a href="#plants">Plants</a></li><li><a href="#featured">Featured</a></li></ul></div>
+  <div><div class="ft-col-t">Support</div><ul class="ft-links"><li><a href="javascript:void(0)">Donate</a></li><li><a href="javascript:void(0)">Volunteer</a></li><li><a href="javascript:void(0)">About</a></li><li><a href="javascript:void(0)">Contact</a></li></ul></div>
+ </div>
+ <div class="ft-bot">
+  <div class="ft-copy">© 2026 LastKind. Data sourced from IUCN Red List, GBIF & WWF.</div>
+  <div class="ft-src"><span>🌍 IUCN</span><span>🔬 GBIF</span><span>🐾 WWF</span></div>
+ </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-ov" id="modal"><div class="modal-box" id="modalBox"></div></div>
+
+<!-- HIDDEN FILE INPUTS -->
+<input type="file" id="fileInputImage" accept="image/*" style="display:none">
+<input type="file" id="fileInputVideo" accept="video/*" style="display:none">
+<input type="file" id="fileInputMulti" accept="image/*,video/*" multiple style="display:none">
+<input type="file" id="fileInputHeroImg" accept="image/*" style="display:none">
+<input type="file" id="fileInputHeroVid" accept="video/*" style="display:none">
+
+<!-- MODAL -->
+<div class="modal-ov" id="modal"><div class="modal-box" id="modalBox"></div></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
