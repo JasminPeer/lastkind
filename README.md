@@ -6,7 +6,7 @@ A project repository for Lastkind, created and maintained by Jasmin Peer.
 
 ## 🌐 Live Demo & Preview
 <!-- ADD YOUR LIVE DEMO LINK BELOW -->
-> 🚀 **Live Demo**: [Click here to view live project](PASTE_YOUR_LIVE_DEMO_URL_HERE)  
+> 🚀 **Live Demo**: https://lastkind.vercel.app/  
 > *(Deploy to Vercel, Netlify, Render, or GitHub Pages and paste your live link above)*
 
 ---
