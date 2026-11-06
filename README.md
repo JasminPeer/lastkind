@@ -1,112 +1,62 @@
-# 🌿 LastKind — Endangered Species Platform
+# Lastkind
 
-A full-stack web application built with **Node.js + Express + MongoDB** to track endangered and extinct species. Upload real images and videos stored locally on the server.
+A project repository for Lastkind, created and maintained by Jasmin Peer.
 
-## 🗂️ Project Structure
+---
 
-```
+## 🌐 Live Demo & Preview
+<!-- ADD YOUR LIVE DEMO LINK BELOW -->
+> 🚀 **Live Demo**: [Click here to view live project](PASTE_YOUR_LIVE_DEMO_URL_HERE)  
+> *(Deploy to Vercel, Netlify, Render, or GitHub Pages and paste your live link above)*
+
+---
+
+## 🛠️ Tech Stack & Technologies
+`JavaScript` `Node.js` `npm`
+
+---
+
+## 📁 Repository Structure
+```text
 lastkind/
-├── server/
-│   ├── index.js              # Express app entry point
-│   ├── seed.js               # Database seeder (20 species)
-│   ├── models/
-│   │   └── Species.js        # Mongoose schema
-│   ├── routes/
-│   │   └── species.js        # All API routes
-│   └── middleware/
-│       └── upload.js         # Multer file upload config
-├── public/
-│   ├── index.html            # Frontend HTML
-│   ├── css/style.css         # All styles
-│   ├── js/app.js             # Frontend JS (API client)
-│   └── uploads/
-│       ├── images/           # Locally stored images
-│       └── videos/           # Locally stored videos
-├── .env                      # Environment variables
+├── .gitignore
+├── CNAME
+├── README.md
+├── package-lock.json
 ├── package.json
-└── README.md
+├── public
+├── server
 ```
 
-## 🚀 Setup & Run
+---
 
-### 1. Install dependencies
+## ⚙️ Prerequisites & Setup
+
+### Requirements
+- Basic familiarity with `JavaScript`
+- Git installed on your local machine
+
+### Installation Steps
 ```bash
+# 1. Clone repository
+git clone https://github.com/JasminPeer/lastkind.git
+cd lastkind
+
+# 2. Install dependencies
 npm install
-```
 
-### 2. Make sure MongoDB is running
-```bash
-# macOS
-brew services start mongodb-community
-
-# Ubuntu/Linux
-sudo systemctl start mongod
-
-# Windows
-net start MongoDB
-```
-
-### 3. Configure environment
-Edit `.env`:
-```
-PORT=3000
-MONGO_URI=mongodb://localhost:27017/lastkind
-```
-
-### 4. Seed the database (first time only)
-```bash
-node server/seed.js
-```
-
-### 5. Start the server
-```bash
-# Production
+# 3. Run application
 npm start
-
-# Development (auto-restart)
-npm run dev
-```
-
-### 6. Open in browser
-```
-http://localhost:3000
+# or npm run dev
 ```
 
 ---
 
-## 📡 API Endpoints
-
-| Method | Route | Description |
-|--------|-------|-------------|
-| GET | `/api/species` | List all species (supports `?cat=`, `?status=`, `?search=`) |
-| GET | `/api/species/stats` | Dashboard statistics |
-| GET | `/api/species/:id` | Get single species |
-| POST | `/api/species` | Create new species |
-| PUT | `/api/species/:id` | Update species |
-| DELETE | `/api/species/:id` | Delete species + media files |
-| POST | `/api/species/:id/image` | Upload image (multipart/form-data) |
-| POST | `/api/species/:id/video` | Upload video (multipart/form-data) |
-| DELETE | `/api/species/:id/image/:mediaId` | Remove one image |
-| DELETE | `/api/species/:id/video/:mediaId` | Remove one video |
-| GET | `/api/health` | Server health check |
+## 🚀 How to Use
+Follow the setup instructions above to launch and test the application locally.
 
 ---
 
-## 💾 Local Storage
-
-Uploaded files are saved to:
-- `public/uploads/images/` — images (max 10MB each)
-- `public/uploads/videos/` — videos (max 100MB each)
-
-Files are served as static assets at `/uploads/images/filename.jpg`
-
-## 🛠️ Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Runtime | Node.js |
-| Framework | Express.js |
-| Database | MongoDB + Mongoose |
-| File Upload | Multer (local disk storage) |
-| Frontend | Vanilla JS + Leaflet.js |
-| Styling | Custom CSS with CSS Variables |
+## 👤 Author
+- **Jasmin Peer**
+- GitHub: [@JasminPeer](https://github.com/JasminPeer)
